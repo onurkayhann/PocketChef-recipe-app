@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  PocketChef
-//
-//  Created by Onur Kayhan on 2025-04-30.
-//
-
 import SwiftUI
 
 struct ContentView: View {
