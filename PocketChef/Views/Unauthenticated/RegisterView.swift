@@ -46,6 +46,14 @@ struct RegisterView: View {
                 .background(Color("DarkerBlue"))
                 .foregroundColor(.white)
                 .clipShape(Capsule())
+                
+                NavigationLink(destination: LoginView(), label: {
+                    Text("Already have an account? Login")
+                        .foregroundStyle(Color.white)
+                        .bold()
+                        .padding()
+                        .underline()
+                })
             }
             .frame(width: 300, height: 500)
             .background(Color("Blue"))
