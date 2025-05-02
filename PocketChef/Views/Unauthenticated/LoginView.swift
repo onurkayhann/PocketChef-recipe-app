@@ -38,7 +38,7 @@ struct LoginView: View {
                 .padding()
                 .background(Color("DarkerBlue"))
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .clipShape(Capsule())
             }
             .frame(width: 300, height: 500)
             .background(Color("Blue"))
