@@ -3,6 +3,7 @@ import SwiftUI
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
+    @EnvironmentObject var db: DbConnection
     
     var body: some View {
         VStack {
@@ -18,7 +19,7 @@ struct LoginView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(.white)
-
+                
                 TextField("Email", text: $email)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
@@ -31,14 +32,16 @@ struct LoginView: View {
                     .frame(width: 250)
                     .cornerRadius(8)
                 
-                Button("Login") {
-                    // login
-                }
-                .frame(width: 220)
-                .padding()
-                .background(Color("DarkerBlue"))
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                Button(action: {
+                    db.loginUser(email: email, password: password)
+                }) {
+                    Text("Login")
+                        .frame(width: 220)
+                        .padding()
+                        .background(Color("DarkerBlue"))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                }.padding()
                 
                 NavigationLink(destination: RegisterView(), label: {
                     Text("Don't have an account? Register")
@@ -56,5 +59,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView().environmentObject(DbConnection())
 }
