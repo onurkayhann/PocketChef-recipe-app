@@ -10,13 +10,14 @@ struct LoginView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
+                .offset(y: -40)
+
                         
             VStack(spacing: 20) {
                 Text("Login")
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(.white)
-                    .offset(y: -40)
 
                 TextField("Email", text: $email)
                     .textFieldStyle(.roundedBorder)
