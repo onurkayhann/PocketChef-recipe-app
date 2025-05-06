@@ -10,7 +10,7 @@ struct LoginView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-                .offset(y: -40)
+                .offset(y: -50)
 
                         
             VStack(spacing: 20) {
@@ -34,7 +34,7 @@ struct LoginView: View {
                 Button("Login") {
                     // login
                 }
-                .frame(width: 200)
+                .frame(width: 220)
                 .padding()
                 .background(Color("DarkerBlue"))
                 .foregroundColor(.white)

@@ -11,7 +11,7 @@ struct RegisterView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
-                .offset(y: -40)
+                .offset(y: -50)
                         
             VStack(spacing: 20) {
                 Text("Register")
