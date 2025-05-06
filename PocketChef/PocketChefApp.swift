@@ -12,10 +12,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct PocketChefApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var dbConnection = DbConnection()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            VStack {
+                ContentView().environmentObject(dbConnection)
+            }
         }
     }
 }

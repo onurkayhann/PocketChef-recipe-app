@@ -1,17 +1,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var db: DbConnection
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Welcome to PocketChef recipe app!")
+        if db.currentUser != nil {
+            // Inloggad vy
+            NavigationStack {
+                HomeView()
+            }
+        } else {
+            // Utloggad vy
+            NavigationStack {
+                LoginView()
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(DbConnection())
 }
