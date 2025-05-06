@@ -16,6 +16,7 @@ struct LoginView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(.white)
+                    .offset(y: -40)
 
                 TextField("Email", text: $email)
                     .textFieldStyle(.roundedBorder)

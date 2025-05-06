@@ -11,6 +11,7 @@ struct RegisterView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 150, height: 150)
+                .offset(y: -40)
                         
             VStack(spacing: 20) {
                 Text("Register")
@@ -38,7 +39,7 @@ struct RegisterView: View {
                 Button("Register") {
                     // register
                 }
-                .frame(width: 200)
+                .frame(width: 220)
                 .padding()
                 .background(Color("DarkerBlue"))
                 .foregroundColor(.white)
