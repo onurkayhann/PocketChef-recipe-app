@@ -8,6 +8,60 @@ class DbConnection {
     let COLLECTION_RECIPES = "recipes"
     var recipes: [Recipe] = []
     
+    let COLLECTION_USER_DATA = "user_data"
+    @Published var currentUser: User?
+    @Published var currentUserData: UserData?
+    
+    var userDataListener: ListenerRegistration?
+    var recipesListener: ListenerRegistration?
+    
+    func registerUser(name: String, email: String, password: String, confirmPassword: String) {
+        guard password == confirmPassword else {
+            print("Error: Passwords do not match!")
+            return
+        }
+        
+        auth.createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let authResult = authResult else { return }
+            
+            let newUserData = UserData(name: name, favoriteRecipes: [])
+            
+            do {
+                try self.db.collection(self.COLLECTION_USER_DATA).document(authResult.user.uid).setData(from: newUserData)
+            } catch let error {
+                print("Failed to create userData: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func loginUser(email: String, password: String) {
+        auth.signIn(withEmail: email, password: password)
+    }
+    
+    init() {
+        auth.addStateDidChangeListener { auth, user in
+            
+            if let user = user {
+                // Användaren har loggat in
+                self.currentUser = user
+                self.startRecipeListener()
+            } else {
+                // Användaren har loggat ut
+                self.currentUser = nil
+                self.recipesListener?.remove()
+                self.recipesListener = nil
+                
+                self.userDataListener?.remove()
+                self.userDataListener = nil
+            }
+        }
+    }
+    
     func deleteRecipe(id: String) {
         let recipeToDelete = recipes.first { $0.id == id }
         
@@ -17,8 +71,8 @@ class DbConnection {
         db.collection(COLLECTION_RECIPES).document(recipeId).delete()
     }
     
-    func startListeningToDb() {
-        db.collection(COLLECTION_RECIPES).addSnapshotListener { snapshot, error in
+    func startRecipeListener() {
+        recipesListener = db.collection(COLLECTION_RECIPES).addSnapshotListener { snapshot, error in
             
             if let error = error {
                 print("Error on snapshot: \(error.localizedDescription)")
@@ -38,6 +92,29 @@ class DbConnection {
                     print("Omvandlingsfel! \(error.localizedDescription)")
                 }
                 
+            }
+        }
+    }
+    
+    func startUserDataListener() {
+        userDataListener = db.collection(COLLECTION_USER_DATA).addSnapshotListener { snapshot, error in
+            
+            if let error = error {
+                print("Error on snapshot: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            guard let currentUser = self.currentUser else { return }
+            
+            let foundUserDataDoc = snapshot.documents.first { $0.documentID == currentUser.uid }
+            
+            guard let foundUserDataDoc = foundUserDataDoc else { return }
+            
+            do {
+                let foundUserData = try foundUserDataDoc.data(as: UserData.self)
+            } catch let error {
+                print("Error transforming userData dictionary to userData struct! \(error.localizedDescription)")
             }
         }
     }

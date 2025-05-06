@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
@@ -18,6 +19,13 @@ struct RegisterView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(.white)
+                
+                TextField("Name", text: $name)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 250)
+                    .cornerRadius(8)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
 
                 TextField("Email", text: $email)
                     .textFieldStyle(.roundedBorder)
