@@ -43,6 +43,16 @@ class DbConnection: ObservableObject {
         auth.signIn(withEmail: email, password: password)
     }
     
+    func signOut() {
+        do {
+            try auth.signOut()
+            currentUser = nil
+            currentUserData = nil
+        } catch _ {
+            
+        }
+    }
+    
     init() {
         auth.addStateDidChangeListener { auth, user in
             
@@ -50,6 +60,7 @@ class DbConnection: ObservableObject {
                 // Användaren har loggat in
                 self.currentUser = user
                 self.startRecipeListener()
+                self.startUserDataListener()
             } else {
                 // Användaren har loggat ut
                 self.currentUser = nil
@@ -58,6 +69,7 @@ class DbConnection: ObservableObject {
                 
                 self.userDataListener?.remove()
                 self.userDataListener = nil
+                self.currentUserData = nil
             }
         }
     }
@@ -113,6 +125,7 @@ class DbConnection: ObservableObject {
             
             do {
                 let foundUserData = try foundUserDataDoc.data(as: UserData.self)
+                self.currentUserData = foundUserData
             } catch let error {
                 print("Error transforming userData dictionary to userData struct! \(error.localizedDescription)")
             }

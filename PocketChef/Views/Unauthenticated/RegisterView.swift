@@ -5,6 +5,7 @@ struct RegisterView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
+    @EnvironmentObject var db: DbConnection
     
     var body: some View {
         VStack {
@@ -44,14 +45,16 @@ struct RegisterView: View {
                     .frame(width: 250)
                     .cornerRadius(8)
                 
-                Button("Register") {
-                    // register
-                }
-                .frame(width: 220)
-                .padding()
-                .background(Color("DarkerBlue"))
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                Button(action: {
+                    db.registerUser(name: name, email: email, password: password, confirmPassword: confirmPassword)
+                }) {
+                    Text("Register")
+                        .frame(width: 220)
+                        .padding()
+                        .background(Color("DarkerBlue"))
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                }.padding()
                 
                 NavigationLink(destination: LoginView(), label: {
                     Text("Already have an account? Login")
@@ -70,5 +73,5 @@ struct RegisterView: View {
 
 
 #Preview {
-    RegisterView()
+    RegisterView().environmentObject(DbConnection())
 }
