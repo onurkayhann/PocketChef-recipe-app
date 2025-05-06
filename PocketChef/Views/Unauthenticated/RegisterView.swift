@@ -19,22 +19,19 @@ struct RegisterView: View {
                     .foregroundStyle(.white)
 
                 TextField("Email", text: $email)
-                    .padding()
-                    .background(Color(.systemGray6))
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
                     .cornerRadius(8)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                 
                 SecureField("Password", text: $password)
-                    .padding()
-                    .background(Color(.systemGray6))
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
                     .cornerRadius(8)
                 
-                SecureField("Confirm Password", text: $password)
-                    .padding()
-                    .background(Color(.systemGray6))
+                SecureField("Confirm Password", text: $confirmPassword)
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
                     .cornerRadius(8)
                 

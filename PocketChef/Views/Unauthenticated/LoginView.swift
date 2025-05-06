@@ -18,16 +18,14 @@ struct LoginView: View {
                     .foregroundStyle(.white)
 
                 TextField("Email", text: $email)
-                    .padding()
-                    .background(Color(.systemGray6))
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
                     .cornerRadius(8)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                 
                 SecureField("Password", text: $password)
-                    .padding()
-                    .background(Color(.systemGray6))
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
                     .cornerRadius(8)
                 
