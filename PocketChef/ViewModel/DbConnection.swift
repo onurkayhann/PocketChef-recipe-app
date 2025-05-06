@@ -2,18 +2,18 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-class DbConnection {
+class DbConnection: ObservableObject {
     var db = Firestore.firestore()
-    var auth = Auth.auth()
-    let COLLECTION_RECIPES = "recipes"
-    var recipes: [Recipe] = []
     
+    let COLLECTION_RECIPES = "recipes"
+    @Published var recipes: [Recipe] = []
+    var recipesListener: ListenerRegistration?
+
+    var auth = Auth.auth()
     let COLLECTION_USER_DATA = "user_data"
     @Published var currentUser: User?
     @Published var currentUserData: UserData?
-    
     var userDataListener: ListenerRegistration?
-    var recipesListener: ListenerRegistration?
     
     func registerUser(name: String, email: String, password: String, confirmPassword: String) {
         guard password == confirmPassword else {
