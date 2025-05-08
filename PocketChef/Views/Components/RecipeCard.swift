@@ -3,6 +3,8 @@ import SwiftUI
 struct RecipeCard: View {
     var recipe: ApiRecipe
     
+    @EnvironmentObject var db: DbConnection
+    
     var body: some View {
         VStack {
             

@@ -74,6 +74,18 @@ class DbConnection: ObservableObject {
         }
     }
     
+    func addRecipe(recipeId: String) {
+        guard let currentUser = currentUser else { return }
+        
+        do {
+            try db.collection(COLLECTION_USER_DATA)
+                .document(currentUser.uid)
+                .updateData(["recipes": FieldValue.arrayUnion([recipeId])])
+        } catch _ {
+            print("Something went wrong adding recipe to userData")
+        }
+    }
+    
     func deleteRecipe(id: String) {
         let recipeToDelete = recipes.first { $0.id == id }
         
@@ -109,25 +121,20 @@ class DbConnection: ObservableObject {
     }
     
     func startUserDataListener() {
-        userDataListener = db.collection(COLLECTION_USER_DATA).addSnapshotListener { snapshot, error in
+        guard let currentUser = currentUser else { return }
+        userDataListener = db.collection(COLLECTION_USER_DATA).document(currentUser.uid).addSnapshotListener { snapshot, error in
             
             if let error = error {
-                print("Error on snapshot: \(error.localizedDescription)")
+                print("Error listening to user data! \(error.localizedDescription)")
                 return
             }
             
             guard let snapshot = snapshot else { return }
-            guard let currentUser = self.currentUser else { return }
-            
-            let foundUserDataDoc = snapshot.documents.first { $0.documentID == currentUser.uid }
-            
-            guard let foundUserDataDoc = foundUserDataDoc else { return }
             
             do {
-                let foundUserData = try foundUserDataDoc.data(as: UserData.self)
-                self.currentUserData = foundUserData
-            } catch let error {
-                print("Error transforming userData dictionary to userData struct! \(error.localizedDescription)")
+                self.currentUserData = try snapshot.data(as: UserData.self)
+            } catch _ {
+                print("Could not convert userData!")
             }
         }
     }
