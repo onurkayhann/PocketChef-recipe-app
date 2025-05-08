@@ -6,7 +6,7 @@ class RecipeManager: ObservableObject {
     @Published var recipes: [ApiRecipe] = []
     
     let BASE_URL = ""
-    let API_KEY = "22e0c12bc5ea49d09d1f3e73c1a78258"
+    let API_KEY = SecretKeys.spoonacularAPIKey
     
     func fetchTopRecipes() async {
             let url = "https://api.spoonacular.com/recipes/complexSearch?number=10&apiKey=\(API_KEY)"
@@ -17,7 +17,7 @@ class RecipeManager: ObservableObject {
                     self.recipes = response.results
                 }
             } catch {
-                print("❌ Failed to fetch recipes: \(error)")
+                print("Failed to fetch recipes: \(error)")
             }
         }
 }
