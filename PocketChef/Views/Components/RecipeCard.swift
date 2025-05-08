@@ -36,7 +36,9 @@ struct RecipeCard: View {
                     }
             }
             Button(action: {
-                // Make this embossed button
+                guard let recipeId = recipe.id else { return } 
+                
+                db.addRecipe(recipeId: recipeId)
             }) {
                 Text("Add Recipe")
                     .frame(width: 220)
