@@ -61,7 +61,7 @@ struct RegisterView: View {
                         .foregroundStyle(Color.white)
                         .bold()
                         .padding()
-                        .underline()
+                        .underline() 
                 })
             }
             .frame(width: 300, height: 500)
