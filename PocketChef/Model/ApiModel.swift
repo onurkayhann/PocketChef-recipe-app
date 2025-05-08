@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Recipe: Codable, Identifiable {
+struct ApiRecipe: Codable, Identifiable {
     @DocumentID var id: String?
     var title: String
     var imageUrl: String
