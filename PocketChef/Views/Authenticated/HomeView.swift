@@ -2,6 +2,8 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var db: DbConnection
+    @EnvironmentObject var recipeManager: RecipeManager
+    
     var body: some View {
         Text(db.currentUserData?.name ?? "John Doe")
         
@@ -15,9 +17,22 @@ struct HomeView: View {
                 .foregroundColor(.white)
                 .clipShape(Capsule())
         }.padding()
+        
+        ScrollView {
+            ForEach(recipeManager.recipes) { recipe in
+                RecipeCard(recipe: recipe)
+                    .environmentObject(db)
+            }
+        }.onAppear {
+            Task {
+                await recipeManager.fetchTopRecipes()
+            }
+        }
     }
 }
 
 #Preview {
-    HomeView().environmentObject(DbConnection())
+    HomeView()
+        .environmentObject(DbConnection())
+        .environmentObject(RecipeManager())
 }
