@@ -6,7 +6,7 @@ class DbConnection: ObservableObject {
     var db = Firestore.firestore()
     
     let COLLECTION_RECIPES = "recipes"
-    @Published var recipes: [Recipe] = []
+    @Published var recipes: [ApiRecipe] = []
     var recipesListener: ListenerRegistration?
 
     var auth = Auth.auth()
