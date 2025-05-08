@@ -19,25 +19,37 @@ struct AuthResponse: Decodable {
 
 typealias RecipeResponse = [ApiRecipe]
 
-struct ApiRecipe: Codable, Identifiable {
-    var id: String? { UUID().uuidString }
-    var title: String
-    var imageUrl: String
-    var instructions: String
-    var intolerances: [String]
-    var cuisine: String
+struct RecipeResponseWrapper: Codable {
+    let results: RecipeResponse
 }
+
+struct ApiRecipe: Codable, Identifiable {
+    var id: String? { String(recipeId) }
+
+        let recipeId: Int
+        let title: String
+        let image: String
+        var instructions: String = ""
+        var intolerances: [String] = []
+        var cuisine: String = "Unknown"
+
+        enum CodingKeys: String, CodingKey {
+            case recipeId = "id"
+            case title
+            case image
+        }
+    }
 
 extension ApiRecipe {
     func toSavedRecipe() -> SavedRecipe {
-        return SavedRecipe(id: id, title: title, imageUrl: imageUrl, instructions: instructions, intolerances: intolerances, cuisine: cuisine)
+        return SavedRecipe(id: id, title: title, image: image, instructions: instructions, intolerances: intolerances, cuisine: cuisine)
     }
 }
 
 struct SavedRecipe: Codable {
     var id: String?
     var title: String
-    var imageUrl: String
+    var image: String
     var instructions: String
     var intolerances: [String]
     var cuisine: String

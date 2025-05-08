@@ -9,7 +9,7 @@ struct RecipeCard: View {
         VStack {
             
             HStack(alignment: .center, spacing: 40) {
-                AsyncImage(url: URL(string: recipe.imageUrl)) { image in
+                AsyncImage(url: URL(string: recipe.image)) { image in
                                     image
                                         .resizable()
                                         .scaledToFill()
@@ -56,8 +56,9 @@ struct RecipeCard: View {
 
 #Preview {
     RecipeCard(recipe: ApiRecipe(
+        recipeId: 1222,
         title: "Chicken Tikka Masala",
-        imageUrl: "https://www.seriouseats.com/thmb/DbQHUK2yNCALBnZE-H1M2AKLkok=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/chicken-tikka-masala-for-the-grill-recipe-hero-2_1-cb493f49e30140efbffec162d5f2d1d7.JPG",
+        image: "https://www.seriouseats.com/thmb/DbQHUK2yNCALBnZE-H1M2AKLkok=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/chicken-tikka-masala-for-the-grill-recipe-hero-2_1-cb493f49e30140efbffec162d5f2d1d7.JPG",
         instructions: "1. Boil Chicken. 2. Cook",
         intolerances: ["Gluten", "Nuts"],
         cuisine: "Indian"))
