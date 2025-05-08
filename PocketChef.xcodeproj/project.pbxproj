@@ -38,33 +38,9 @@
 		48B6B36A2DC224600052B12C /* PocketChefUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketChefUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		48AE66182DCD05B60017707A /* Exceptions for "PocketChef" folder in "PocketChef" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				.gitignore,
-			);
-			target = 48B6B3522DC2245E0052B12C /* PocketChef */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		48AE66192DCD05B60017707A /* Exceptions for "PocketChef" folder in "Compile Sources" phase from "PocketChef" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 48B6B34F2DC2245E0052B12C /* Sources */;
-			membershipExceptions = (
-				.gitignore,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		48B6B3552DC2245E0052B12C /* PocketChef */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				48AE66182DCD05B60017707A /* Exceptions for "PocketChef" folder in "PocketChef" target */,
-				48AE66192DCD05B60017707A /* Exceptions for "PocketChef" folder in "Compile Sources" phase from "PocketChef" target */,
-			);
 			path = PocketChef;
 			sourceTree = "<group>";
 		};

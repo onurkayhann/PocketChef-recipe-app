@@ -26,23 +26,20 @@ struct RecipeResponseWrapper: Codable {
 struct ApiRecipe: Codable, Identifiable {
     var id: String? { String(recipeId) }
 
-        let recipeId: Int
-        let title: String
-        let image: String
-        var instructions: String = ""
-        var intolerances: [String] = []
-        var cuisine: String = "Unknown"
+    let recipeId: Int
+    let title: String
+    let image: String
 
-        enum CodingKeys: String, CodingKey {
-            case recipeId = "id"
-            case title
-            case image
-        }
+    enum CodingKeys: String, CodingKey {
+        case recipeId = "id"
+        case title
+        case image
     }
+}
 
 extension ApiRecipe {
     func toSavedRecipe() -> SavedRecipe {
-        return SavedRecipe(id: id, title: title, image: image, instructions: instructions, intolerances: intolerances, cuisine: cuisine)
+        return SavedRecipe(id: id, title: title, image: image)
     }
 }
 
@@ -50,8 +47,5 @@ struct SavedRecipe: Codable {
     var id: String?
     var title: String
     var image: String
-    var instructions: String
-    var intolerances: [String]
-    var cuisine: String
 }
  

@@ -21,12 +21,9 @@ struct HomeView: View {
         ScrollView {
             ForEach(recipeManager.recipes) { recipe in
                 RecipeCard(recipe: recipe)
-                    .environmentObject(db)
             }
-        }.onAppear {
-            Task {
-                await recipeManager.fetchTopRecipes()
-            }
+        }.task {
+            await recipeManager.fetchTopRecipes()
         }
     }
 }

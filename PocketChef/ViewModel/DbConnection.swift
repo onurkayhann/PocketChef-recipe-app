@@ -110,6 +110,7 @@ class DbConnection: ObservableObject {
             for document in snapshot.documents {
                 
                 do {
+                    print("🧾 Firestore raw data:", document.data())
                     let recipe = try document.data(as: ApiRecipe.self)
                     self.recipes.append(recipe)
                 } catch let error {
