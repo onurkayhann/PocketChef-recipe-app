@@ -98,7 +98,7 @@ class DbConnection: ObservableObject {
             for document in snapshot.documents {
                 
                 do {
-                    let recipe = try document.data(as: Recipe.self)
+                    let recipe = try document.data(as: ApiRecipe.self)
                     self.recipes.append(recipe)
                 } catch let error {
                     print("Omvandlingsfel! \(error.localizedDescription)")
