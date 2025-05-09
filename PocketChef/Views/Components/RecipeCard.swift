@@ -3,7 +3,10 @@ import SwiftUI
 struct RecipeCard: View {
     var recipe: ApiRecipe
     @EnvironmentObject var db: DbConnection
-    @State var isAdded = false
+    var isAdded: Bool {
+        guard let recipeId = recipe.id else { return false }
+        return db.currentUserData?.recipes.contains(recipeId) ?? false
+    }
     
     var body: some View {
         VStack {
@@ -17,7 +20,7 @@ struct RecipeCard: View {
                 }
                 .frame(width: 100, height: 100)
                 .clipShape(Circle())
-
+                
                 Text(recipe.title)
                     .font(.headline)
                     .foregroundColor(Color.white.opacity(0.87))
@@ -25,7 +28,7 @@ struct RecipeCard: View {
             .padding()
             Spacer()
             recipeButton
-            .padding()
+                .padding()
         }
         .frame(width: 375, height: 250, alignment: .center)
         .background(.cardBlue)
@@ -33,17 +36,16 @@ struct RecipeCard: View {
     }
     
     var recipeButton: some View {
-      ShadowButton(text: isAdded ? "Added" : "Add Recipe") {
-          guard let recipeId = recipe.id else { return }
-
-          if isAdded {
-              db.deleteRecipe(id: recipeId)
-          } else {
-              db.addRecipe(recipeId: recipeId)
-          }
-          isAdded.toggle()
-      }
-      .padding()
+        ShadowButton(text: isAdded ? "Added" : "Add Recipe") {
+            guard let recipeId = recipe.id else { return }
+            
+            if isAdded {
+                db.deleteRecipe(id: recipeId)
+            } else {
+                db.addRecipe(recipeId: recipeId)
+            }
+        }
+        .padding()
     }
 }
 
