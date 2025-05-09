@@ -3,7 +3,7 @@ import SwiftUI
 struct RecipeCard: View {
     var recipe: ApiRecipe
     @EnvironmentObject var db: DbConnection
-    @State private var isAdded = false
+    @State var isAdded = false
     
     var body: some View {
         VStack {
@@ -20,37 +20,33 @@ struct RecipeCard: View {
 
                 Text(recipe.title)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.white.opacity(0.87))
             }
             .padding()
-
             Spacer()
-
-            Button(action: {
-                guard let recipeId = recipe.id else { return }
-
-                if isAdded {
-                    db.deleteRecipe(id: recipeId)
-                } else {
-                    db.addRecipe(recipeId: recipeId)
-                }
-
-                isAdded.toggle()
-            }) {
-                Text(!isAdded ? "Add Recipe" : "Added")
-                    .frame(width: 220)
-                    .padding()
-                    .background(Color("DarkerBlue"))
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-            }
+            recipeButton
             .padding()
         }
         .frame(width: 375, height: 250, alignment: .center)
-        .background(.blue)
+        .background(.cardBlue)
         .clipShape(.buttonBorder)
     }
+    
+    var recipeButton: some View {
+      ShadowButton(text: isAdded ? "Added" : "Add Recipe") {
+          guard let recipeId = recipe.id else { return }
+
+          if isAdded {
+              db.deleteRecipe(id: recipeId)
+          } else {
+              db.addRecipe(recipeId: recipeId)
+          }
+          isAdded.toggle()
+      }
+      .padding()
+    }
 }
+
 
 #Preview {
     RecipeCard(recipe: ApiRecipe(
