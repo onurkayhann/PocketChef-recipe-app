@@ -7,7 +7,7 @@ struct ContentView: View {
         if db.currentUser != nil {
             // Inloggad vy
             NavigationStack {
-                HomeView()
+                PickerView()
             }
         } else {
             // Utloggad vy
