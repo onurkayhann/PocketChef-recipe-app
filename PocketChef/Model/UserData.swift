@@ -2,5 +2,9 @@ import Foundation
 
 struct UserData: Codable {
     var name: String
-    var favoriteRecipes: [String]
+    var recipes: [String]
+    
+    var favoriteRecipes: [String] {
+        recipes
+    }
 }

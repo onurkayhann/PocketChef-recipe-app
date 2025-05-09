@@ -29,7 +29,7 @@ class DbConnection: ObservableObject {
             
             guard let authResult = authResult else { return }
             
-            let newUserData = UserData(name: name, favoriteRecipes: [])
+            let newUserData = UserData(name: name, recipes: [])
             
             do {
                 try self.db.collection(self.COLLECTION_USER_DATA).document(authResult.user.uid).setData(from: newUserData)
