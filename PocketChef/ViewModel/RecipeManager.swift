@@ -17,7 +17,7 @@ class RecipeManager: ObservableObject {
             do {
                 try db.collection("recipes").document(id).setData(from: recipe)
             } catch {
-                print("❌ Error saving recipe \(id): \(error)")
+                print("Error saving recipe \(id): \(error)")
             }
         }
     }
@@ -29,10 +29,10 @@ class RecipeManager: ObservableObject {
             let response: RecipeResponseWrapper = try await api.get(url: url)
             DispatchQueue.main.async {
                 self.recipes = response.results
-                self.saveRecipesToFirestore(response.results) // ✅ Save to Firestore
+                self.saveRecipesToFirestore(response.results)
             }
         } catch {
-            print("❌ Failed to fetch recipes: \(error)")
+            print("Failed to fetch recipes: \(error)")
         }
     }
 }

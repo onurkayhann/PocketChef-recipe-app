@@ -3,7 +3,8 @@ import SwiftUI
 struct RecipeCard: View {
     var recipe: ApiRecipe
     @EnvironmentObject var db: DbConnection
-
+    @State private var isAdded = false
+    
     var body: some View {
         VStack {
             HStack(alignment: .center, spacing: 20) {
@@ -27,9 +28,16 @@ struct RecipeCard: View {
 
             Button(action: {
                 guard let recipeId = recipe.id else { return }
-                db.addRecipe(recipeId: recipeId)
+
+                if isAdded {
+                    db.deleteRecipe(id: recipeId)
+                } else {
+                    db.addRecipe(recipeId: recipeId)
+                }
+
+                isAdded.toggle()
             }) {
-                Text("Add Recipe")
+                Text(!isAdded ? "Add Recipe" : "Added")
                     .frame(width: 220)
                     .padding()
                     .background(Color("DarkerBlue"))
