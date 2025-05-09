@@ -32,27 +32,21 @@ struct LoginView: View {
                     .frame(width: 250)
                     .cornerRadius(8)
                 
-                Button(action: {
+                ShadowButton(text: "Login") {
                     db.loginUser(email: email, password: password)
-                }) {
-                    Text("Login")
-                        .frame(width: 220)
-                        .padding()
-                        .background(Color("DarkerBlue"))
-                        .foregroundColor(.white)
-                        .clipShape(Capsule())
-                }.padding()
+                }
+                .frame(width: 250)
                 
                 NavigationLink(destination: RegisterView(), label: {
                     Text("Don't have an account? Register")
-                        .foregroundStyle(Color.white)
+                        .foregroundColor(Color.white.opacity(0.87))
                         .bold()
                         .padding()
                         .underline()
                 })
             }
             .frame(width: 300, height: 500)
-            .background(Color("Blue"))
+            .background(.cardBlue)
             .cornerRadius(16)
         }
     }
