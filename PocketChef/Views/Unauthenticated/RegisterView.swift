@@ -5,7 +5,9 @@ struct RegisterView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
+    
     @EnvironmentObject var db: DbConnection
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -14,7 +16,7 @@ struct RegisterView: View {
                 .scaledToFit()
                 .frame(width: 150, height: 150)
                 .offset(y: -50)
-                        
+            
             VStack(spacing: 20) {
                 Text("Register")
                     .font(.largeTitle)
@@ -27,7 +29,7 @@ struct RegisterView: View {
                     .cornerRadius(8)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
-
+                
                 TextField("Email", text: $email)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 250)
@@ -56,13 +58,15 @@ struct RegisterView: View {
                         .clipShape(Capsule())
                 }.padding()
                 
-                NavigationLink(destination: LoginView(), label: {
+                Button(action: {
+                    dismiss()
+                }) {
                     Text("Already have an account? Login")
                         .foregroundStyle(Color.white)
                         .bold()
                         .padding()
-                        .underline() 
-                })
+                        .underline()
+                }
             }
             .frame(width: 300, height: 500)
             .background(Color("Blue"))
