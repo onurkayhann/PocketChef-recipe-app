@@ -87,12 +87,19 @@ class DbConnection: ObservableObject {
     }
     
     func deleteRecipe(id: String) {
-        let recipeToDelete = recipes.first { $0.id == id }
-        
-        guard let recipeToDelete = recipeToDelete else { return }
-        guard let recipeId = recipeToDelete.id else { return }
-        
-        db.collection(COLLECTION_RECIPES).document(recipeId).delete()
+        guard let currentUser = currentUser else { return }
+
+        db.collection(COLLECTION_USER_DATA)
+            .document(currentUser.uid)
+            .updateData([
+                "recipes": FieldValue.arrayRemove([id])
+            ]) { error in
+                if let error = error {
+                    print("Failed to remove recipe: \(error.localizedDescription)")
+                } else {
+                    print("Recipe removed from user favorites.")
+                }
+            }
     }
     
     func startRecipeListener() {
