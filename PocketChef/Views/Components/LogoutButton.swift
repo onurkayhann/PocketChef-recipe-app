@@ -45,7 +45,7 @@ extension Text {
 struct LogoutButton_Previews: PreviewProvider {
   static var previews: some View {
     ZStack {
-        LogoutButton(text: "Get Started") {
+        LogoutButton(text: "Logout") {
         print("Hello World")
       }
       .buttonStyle(.shadowLogout)
