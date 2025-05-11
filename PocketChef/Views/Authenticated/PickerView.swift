@@ -5,6 +5,7 @@ struct PickerView: View {
         case home = "Home"
         case settings = "Settings"
         case favoriteRecipes = "My Recipes"
+        case searchRecipe = "Search"
         
         var id: String { self.rawValue }
     }
@@ -20,7 +21,6 @@ struct PickerView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding()
-
                 Spacer()
 
                 switch selectedTab {
@@ -30,6 +30,8 @@ struct PickerView: View {
                     SettingsView()
                 case .favoriteRecipes:
                     FavoriteRecipesView()
+                case .searchRecipe:
+                    SearchRecipeView()
                 }
             }
         }
