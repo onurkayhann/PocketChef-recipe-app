@@ -35,4 +35,17 @@ class RecipeManager: ObservableObject {
             print("Failed to fetch recipes: \(error)")
         }
     }
+    
+    func searchRecipesByCuisine(cuisine: String) async {
+        let url = "https://api.spoonacular.com/recipes/complexSearch?cuisine=\(cuisine)&number=10&apiKey=\(API_KEY)"
+        
+        do {
+            let response: RecipeResponseWrapper = try await api.get(url: url)
+            DispatchQueue.main.async {
+                self.recipes = response.results
+            }
+        } catch {
+            print("Failed to search recipes by cuisine: \(error)")
+        }
+    }
 }
