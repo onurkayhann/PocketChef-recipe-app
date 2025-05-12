@@ -48,4 +48,16 @@ class RecipeManager: ObservableObject {
             print("Failed to search recipes by cuisine: \(error)")
         }
     }
+    
+    func fetchInstructions(for recipeId: Int) async -> [Instructions] {
+        let url = "https://api.spoonacular.com/recipes/\(recipeId)/analyzedInstructions?apiKey=546b720dd1364370aac95e4048ae91a5"
+        
+        do {
+            let result: [AnalyzedInstruction] = try await api.get(url: url)
+            return result.first?.steps ?? []
+        } catch {
+            print("Error fetching instructions: \(error)")
+            return []
+        }
+    }
 }

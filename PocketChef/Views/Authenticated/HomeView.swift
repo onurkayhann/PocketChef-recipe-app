@@ -9,7 +9,9 @@ struct HomeView: View {
         
         ScrollView {
             ForEach(recipeManager.recipes) { recipe in
-                RecipeCard(recipe: recipe)
+                NavigationLink(destination: RecipeInstructionsView(recipe: recipe)) {
+                    RecipeCard(recipe: recipe)
+                }
             }
         }.task {
             await recipeManager.fetchTopRecipes()

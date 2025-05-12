@@ -49,3 +49,13 @@ struct SavedRecipe: Codable {
     var image: String
 }
  
+struct AnalyzedInstruction: Codable {
+    let name: String
+    let steps: [Instructions]
+}
+
+struct Instructions: Codable, Identifiable {
+    var id: Int { number }
+    let number: Int
+    let step: String
+}
