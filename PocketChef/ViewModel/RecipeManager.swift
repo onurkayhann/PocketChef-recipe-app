@@ -43,9 +43,22 @@ class RecipeManager: ObservableObject {
             let response: RecipeResponseWrapper = try await api.get(url: url)
             DispatchQueue.main.async {
                 self.recipes = response.results
+                self.saveRecipesToFirestore(response.results)
             }
         } catch {
             print("Failed to search recipes by cuisine: \(error)")
+        }
+    }
+    
+    func fetchInstructions(for recipeId: Int) async -> [Instructions] {
+        let url = "https://api.spoonacular.com/recipes/\(recipeId)/analyzedInstructions?apiKey=\(API_KEY)"
+        
+        do {
+            let result: [AnalyzedInstruction] = try await api.get(url: url)
+            return result.first?.steps ?? []
+        } catch {
+            print("Error fetching instructions: \(error)")
+            return []
         }
     }
 }

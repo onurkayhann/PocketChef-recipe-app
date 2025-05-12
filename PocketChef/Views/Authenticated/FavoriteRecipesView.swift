@@ -2,11 +2,10 @@ import SwiftUI
 
 struct FavoriteRecipesView: View {
     @EnvironmentObject var db: DbConnection
-    @EnvironmentObject var recipeManager: RecipeManager
     
     var body: some View {
         VStack {
-            Text("Favorite Recipes below") // render user name here maybe?
+            Text("Favorite Recipes below")
                 .font(.title)
                 .bold()
                 .foregroundStyle(.black)
@@ -14,13 +13,15 @@ struct FavoriteRecipesView: View {
             
             if let myFavoriteRecipes = db.currentUserData?.recipes, !myFavoriteRecipes.isEmpty {
                 ScrollView {
-                    ForEach(recipeManager.recipes.filter { recipe in
+                    ForEach(db.recipes.filter { recipe in
                         if let id = recipe.id {
                             return myFavoriteRecipes.contains(id)
                         }
                         return false
                     }) { recipe in
-                        RecipeCard(recipe: recipe)
+                        NavigationLink(destination: RecipeInstructionsView(recipe: recipe)) {
+                            RecipeCard(recipe: recipe)
+                        }
                     }
                 }
             } else {

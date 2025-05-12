@@ -3,6 +3,7 @@ import SwiftUI
 struct RecipeCard: View {
     var recipe: ApiRecipe
     @EnvironmentObject var db: DbConnection
+    
     var isAdded: Bool {
         guard let recipeId = recipe.id else { return false }
         return db.currentUserData?.recipes.contains(recipeId) ?? false
