@@ -13,7 +13,9 @@ struct SearchRecipeView: View {
 
             ScrollView {
                 ForEach(recipeManager.recipes) { recipe in
-                    RecipeCard(recipe: recipe)
+                    NavigationLink(destination: RecipeInstructionsView(recipe: recipe)) {
+                        RecipeCard(recipe: recipe)
+                    }
                 }
             }
             .searchable(text: $userInput, prompt: "Search by cuisine")
