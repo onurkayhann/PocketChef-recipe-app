@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct SearchRecipeView: View {
-    @EnvironmentObject var db: DbConnection
     @EnvironmentObject var recipeManager: RecipeManager
     @State private var userInput: String = ""
 
@@ -39,6 +38,5 @@ struct SearchRecipeView: View {
 
 #Preview {
     SearchRecipeView()
-        .environmentObject(DbConnection())
         .environmentObject(RecipeManager())
 }
