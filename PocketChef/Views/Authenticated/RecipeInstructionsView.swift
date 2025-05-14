@@ -40,8 +40,10 @@ struct RecipeInstructionsView: View {
                     ForEach(instructions) { instruction in
                         Text("Step \(instruction.number):")
                             .font(.headline)
+                            .foregroundStyle(Color("instructionsBlue"))
                         Text(instruction.step)
                             .padding(.bottom, 8)
+                            .foregroundStyle(Color("instructionsBlue"))
                     }
                 }
                 .padding()
