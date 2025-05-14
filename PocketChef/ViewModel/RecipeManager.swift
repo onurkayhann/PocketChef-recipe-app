@@ -8,7 +8,7 @@ class RecipeManager: ObservableObject {
     @Published var recipes: [ApiRecipe] = []
     
     let BASE_URL = ""
-    let API_KEY = "546b720dd1364370aac95e4048ae91a5"
+    let API_KEY = Secrets.spoonacularAPIKey
     
     func saveRecipesToFirestore(_ recipes: [ApiRecipe]) {
         let db = Firestore.firestore()
