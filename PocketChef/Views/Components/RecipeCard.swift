@@ -37,7 +37,7 @@ struct RecipeCard: View {
     }
     
     var recipeButton: some View {
-        ShadowButton(text: isAdded ? "Added" : "Add Recipe") {
+        ShadowButton(text: isAdded ? "Delete Recipe" : "Add Recipe") {
             guard let recipeId = recipe.id else { return }
             
             if isAdded {
